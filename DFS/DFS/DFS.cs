@@ -21,11 +21,16 @@ namespace Grafos.DFS
 
         public void Buscar(int valorInicial)
         {
-            if(!MatrizAdj.ContainsKey(valorInicial))
+
+            if (Visitados.Contains(valorInicial))
                 return;
 
-            if(Visitados.Contains(valorInicial))
+            if (!MatrizAdj.ContainsKey(valorInicial))
+            {
+                Visitados.Add(valorInicial);
                 return;
+            }
+                
 
             List<int> aux = new List<int>();
 
@@ -46,7 +51,7 @@ namespace Grafos.DFS
         public void PrintVisitados()
         {
             Console.Write("Visitados: ");
-            foreach(var item in Visitados)
+            foreach(var item in Visitados.OrderBy(x => x))
             {
                 Console.Write($"{item} ");
             }
