@@ -8,13 +8,13 @@ namespace Grafos
 {
     public class Grafo
     {
-        public Dictionary<int, List<int>> MatrizAdj { get; set; }
+        public Dictionary<int, List<int>> ListaAdj { get; set; }
         public List<int> Vertices { get; }
 
         public Grafo(List<int> valores)
         {
             this.Vertices = valores;
-            this.MatrizAdj = new Dictionary<int, List<int>>(); 
+            this.ListaAdj = new Dictionary<int, List<int>>(); 
         }
 
         // Irá setar vertice v2 adjacente ao v1
@@ -26,22 +26,22 @@ namespace Grafos
             if (Exist(v1, v2))
                 throw new ArgumentException("Valores não existem na lista de vértices definidas");
 
-            bool listaExiste = MatrizAdj.ContainsKey(v1);
+            bool listaExiste = ListaAdj.ContainsKey(v1);
 
             // Caso tenha uma lista de adjacencia do vertice v1, então irá guardar os valores existentes mais o novo
             if (listaExiste)
             {
-                MatrizAdj.TryGetValue(v1, out adjaExistente); 
+                ListaAdj.TryGetValue(v1, out adjaExistente); 
                 adja.AddRange(adjaExistente);
                 adja.Add(v2);
 
-                MatrizAdj[v1] = adja;
+                ListaAdj[v1] = adja;
                 return;
             }
 
             // Caso não tenha uma lista de adjacencia do vertice v1
             adja.Add(v2);
-            MatrizAdj.Add(v1, adja);
+            ListaAdj.Add(v1, adja);
         }
 
         // Verifica se existe os vertices v1 e v2 nos vertices definidos pelo usuário
@@ -53,7 +53,7 @@ namespace Grafos
 
         public void PrintAdj()
         {
-            foreach (KeyValuePair<int, List<int>> item in MatrizAdj)
+            foreach (KeyValuePair<int, List<int>> item in ListaAdj)
             {
                 Console.Write($"Vertices adjcentes a {item.Key}: ");
 

@@ -8,13 +8,13 @@ namespace Grafos.DFS
 {
     public class BuscaDfs
     {
-        private IReadOnlyDictionary<int, List<int>> MatrizAdj { get; }
+        private IReadOnlyDictionary<int, List<int>> ListaAdj { get; }
         private IReadOnlyList<int> Vertices { get; }
         private List<int> Visitados { get; }
 
         public BuscaDfs(Dictionary<int, List<int>> matrizAdj, List<int> vertices)
         {
-            MatrizAdj = matrizAdj;
+            ListaAdj = matrizAdj;
             Vertices = vertices;
             Visitados = new List<int>();
         }
@@ -25,7 +25,7 @@ namespace Grafos.DFS
             if (Visitados.Contains(valorInicial))
                 return;
 
-            if (!MatrizAdj.ContainsKey(valorInicial))
+            if (!ListaAdj.ContainsKey(valorInicial))
             {
                 Visitados.Add(valorInicial);
                 return;
@@ -35,7 +35,7 @@ namespace Grafos.DFS
             List<int> aux = new List<int>();
 
             Visitados.Add(valorInicial);
-            MatrizAdj.TryGetValue(valorInicial, out aux);
+            ListaAdj.TryGetValue(valorInicial, out aux);
 
             foreach(var item in aux)
             {
