@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Grafos
+namespace Grafos.BFS
 {
-    public class BFS
+    public class BuscaBfs
     {
         private IReadOnlyDictionary<int, List<int>> ListaAdj { get; }
         private IReadOnlyList<int> Vertices { get; }
         private List<int> Visitados { get; }
         private Queue<int> Fila { get; }
 
-        public BFS(IReadOnlyDictionary<int, List<int>> listaAdj, IReadOnlyList<int> vertices)
+        public BuscaBfs(IReadOnlyDictionary<int, List<int>> listaAdj, IReadOnlyList<int> vertices)
         {
             ListaAdj = listaAdj;
             Vertices = vertices;
@@ -23,8 +23,6 @@ namespace Grafos
 
         public void Executar(int v)
         {
-            List<int> valores = new List<int>();
-
             // Se for a primeira vez 
             if (!Fila.Contains(v))
             {
@@ -32,7 +30,7 @@ namespace Grafos
                 Visitados.Add(v);
             }
 
-            if (!ListaAdj.TryGetValue(v, out valores))
+            if (!ListaAdj.ContainsKey(v))
             {
                 Fila.Dequeue();
                 if (Fila.Count == 0)
@@ -41,6 +39,9 @@ namespace Grafos
                 Executar(Fila.Peek());
                 return;
             }
+
+            List<int> valores = new List<int>();
+            ListaAdj.TryGetValue(v, out valores);
 
             foreach (int i in valores)
             {

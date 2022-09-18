@@ -1,4 +1,5 @@
-﻿using Grafos.DFS;
+﻿using Grafos.BFS;
+using Grafos.DFS;
 using System;
 using System.Collections.Generic;
 
@@ -39,7 +40,7 @@ namespace Grafos
             gf.PrintAdj();
 
             BuscaDfs dfs = new BuscaDfs(gf.ListaAdj, gf.Vertices);
-            BFS bfs = new BFS(gf.ListaAdj, gf.Vertices);
+            BuscaBfs bfs = new BuscaBfs(gf.ListaAdj, gf.Vertices);
 
             bfs.Executar(1);
             bfs.PrintVisitados();

@@ -45,7 +45,6 @@ namespace Grafos.DFS
 
                 Buscar(item);
             }
-
         }
 
         public void PrintVisitados()
