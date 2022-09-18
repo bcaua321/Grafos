@@ -24,23 +24,22 @@ namespace Grafos
         public void Executar(int v)
         {
             List<int> valores = new List<int>();
-            ListaAdj.TryGetValue(v, out valores);
 
-            if (valores == null)
+            // Se for a primeira vez 
+            if (!Fila.Contains(v))
+            {
+                Fila.Enqueue(v);
+                Visitados.Add(v);
+            }
+
+            if (!ListaAdj.TryGetValue(v, out valores))
             {
                 Fila.Dequeue();
-
                 if (Fila.Count == 0)
                     return;
 
                 Executar(Fila.Peek());
                 return;
-            }
-
-            if(!Fila.Contains(v))
-            {
-                Fila.Enqueue(v);
-                Visitados.Add(v);
             }
 
             foreach (int i in valores)
@@ -56,7 +55,7 @@ namespace Grafos
             Console.WriteLine();
             Fila.Dequeue();
 
-            if (Fila.Count == 0 && Visitados.Count > 0)
+            if (Fila.Count == 0)
                 return;
 
             Executar(Fila.Peek());
