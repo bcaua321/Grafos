@@ -9,17 +9,15 @@ namespace Grafos.DFS
     public class BuscaDfs
     {
         private IReadOnlyDictionary<int, List<int>> ListaAdj { get; }
-        private IReadOnlyList<int> Vertices { get; }
         private List<int> Visitados { get; }
 
-        public BuscaDfs(Dictionary<int, List<int>> matrizAdj, List<int> vertices)
+        public BuscaDfs(Dictionary<int, List<int>> matrizAdj)
         {
             ListaAdj = matrizAdj;
-            Vertices = vertices;
             Visitados = new List<int>();
         }
 
-        public void Buscar(int valorInicial)
+        public void Executar(int valorInicial)
         {
 
             if (Visitados.Contains(valorInicial))
@@ -43,14 +41,14 @@ namespace Grafos.DFS
                 if (Visitados.Contains(item))
                     continue;
 
-                Buscar(item);
+                Executar(item);
             }
         }
 
         public void PrintVisitados()
         {
-            Console.Write("Visitados: ");
-            foreach(var item in Visitados.OrderBy(x => x))
+            Console.Write("Ordem Visitados: ");
+            foreach(var item in Visitados)
             {
                 Console.Write($"{item} ");
             }

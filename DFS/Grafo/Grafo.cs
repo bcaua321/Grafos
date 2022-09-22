@@ -11,9 +11,8 @@ namespace Grafos
         public Dictionary<int, List<int>> ListaAdj { get; set; }
         public List<int> Vertices { get; }
 
-        public Grafo(List<int> valores)
+        public Grafo()
         {
-            this.Vertices = valores;
             this.ListaAdj = new Dictionary<int, List<int>>(); 
         }
 
@@ -22,9 +21,6 @@ namespace Grafos
         {
             List<int> adjaExistente = new List<int>();
             List<int> adja = new List<int>();
-
-            if (Exist(v1, v2))
-                throw new ArgumentException("Valores não existem na lista de vértices definidas");
 
             bool listaExiste = ListaAdj.ContainsKey(v1);
 
@@ -47,7 +43,7 @@ namespace Grafos
         // Verifica se existe os vertices v1 e v2 nos vertices definidos pelo usuário
         private bool Exist(int v1, int v2)
         {
-            bool estaContido = Vertices.Where(x => x == v1 && x == v2).Count() > 2;
+            bool estaContido = Vertices.Where(x => x == v1 || x == v2).Count() > 2;
             return estaContido;
         }
 
@@ -55,7 +51,7 @@ namespace Grafos
         {
             foreach (KeyValuePair<int, List<int>> item in ListaAdj)
             {
-                Console.Write($"Vertices adjcentes a {item.Key}: ");
+                Console.Write($"Vertice(s) adjacente(s) a {item.Key}: ");
 
                 foreach(int v in item.Value)
                 {

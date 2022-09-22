@@ -9,28 +9,30 @@ namespace Grafos.BFS
     public class BuscaBfs
     {
         private IReadOnlyDictionary<int, List<int>> ListaAdj { get; }
-        private IReadOnlyList<int> Vertices { get; }
         private List<int> Visitados { get; }
         private Queue<int> Fila { get; }
 
-        public BuscaBfs(IReadOnlyDictionary<int, List<int>> listaAdj, IReadOnlyList<int> vertices)
+        public BuscaBfs(IReadOnlyDictionary<int, List<int>> listaAdj)
         {
             ListaAdj = listaAdj;
-            Vertices = vertices;
             Visitados = new List<int>();
             Fila = new Queue<int>();
         }
 
         public void Executar(int v)
         {
-            // Se for a primeira vez 
+            // Se for a primeira vez que o vértice será adicionado na Fila
             if (!Fila.Contains(v))
             {
+                Console.WriteLine($"\nInício: {v}");
                 Fila.Enqueue(v);
                 Visitados.Add(v);
             }
 
-            if (!ListaAdj.ContainsKey(v))
+            List<int> valoresAdj = new List<int>();
+
+            // Se o vértice não tiver vértices adjacentes
+            if (!ListaAdj.TryGetValue(v, out valoresAdj))
             {
                 Fila.Dequeue();
                 if (Fila.Count == 0)
@@ -40,10 +42,7 @@ namespace Grafos.BFS
                 return;
             }
 
-            List<int> valores = new List<int>();
-            ListaAdj.TryGetValue(v, out valores);
-
-            foreach (int i in valores)
+            foreach (int i in valoresAdj)
             {
                 if (Visitados.Contains(i))
                     continue;
@@ -52,10 +51,9 @@ namespace Grafos.BFS
                 Visitados.Add(i);
                 Fila.Enqueue(i);
             }
-
             Console.WriteLine();
-            Fila.Dequeue();
 
+            Fila.Dequeue();
             if (Fila.Count == 0)
                 return;
 
@@ -64,8 +62,8 @@ namespace Grafos.BFS
 
         public void PrintVisitados()
         {
-            Console.Write("Visitados: ");
-            foreach (var item in Visitados.OrderBy(x => x))
+            Console.Write("Ordem Visitados: ");
+            foreach (var item in Visitados)
             {
                 Console.Write($"{item} ");
             }
