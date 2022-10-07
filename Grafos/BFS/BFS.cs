@@ -8,9 +8,9 @@ namespace Grafos.BFS
 {
     public class BuscaBfs
     {
-        private IReadOnlyDictionary<int, List<int>> ListaAdj { get; }
-        private List<int> Visitados { get; }
-        private Queue<int> Fila { get; }
+        private IReadOnlyDictionary<int, List<int>> ListaAdj { get; } // para guardar a lista de adjacencia
+        private List<int> Visitados { get; } // para guardar os vértices visitados
+        private Queue<int> Fila { get; } // para ter o controle dos vértices visitados
 
         public BuscaBfs(IReadOnlyDictionary<int, List<int>> listaAdj)
         {
@@ -34,30 +34,31 @@ namespace Grafos.BFS
             // Se o vértice não tiver vértices adjacentes
             if (!ListaAdj.TryGetValue(v, out valoresAdj))
             {
-                Fila.Dequeue();
+                Fila.Dequeue(); // retira o vértice da ordem 
                 if (Fila.Count == 0)
                     return;
 
-                Executar(Fila.Peek());
+                Executar(Fila.Peek()); // pega o próximo vértice
                 return;
             }
 
-            foreach (int i in valoresAdj)
+            // Percorre todos os vértices adjacentes do vértice e adiciona na fila
+            foreach (int item in valoresAdj) 
             {
-                if (Visitados.Contains(i))
+                if (Visitados.Contains(item))
                     continue;
 
-                Console.Write($"{i} ");
-                Visitados.Add(i);
-                Fila.Enqueue(i);
+                Console.Write($"{item} ");
+                Visitados.Add(item);
+                Fila.Enqueue(item);
             }
             Console.WriteLine();
 
-            Fila.Dequeue();
+            Fila.Dequeue(); // Retira o vértice atual da fila 
             if (Fila.Count == 0)
                 return;
 
-            Executar(Fila.Peek());
+            Executar(Fila.Peek()); // Pega o próximo vértice da fila
         }
 
         public void PrintVisitados()
