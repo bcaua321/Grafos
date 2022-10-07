@@ -8,8 +8,8 @@ namespace Grafos.DFS
 {
     public class BuscaDfs
     {
-        private IReadOnlyDictionary<int, List<int>> ListaAdj { get; }
-        private List<int> Visitados { get; }
+        private IReadOnlyDictionary<int, List<int>> ListaAdj { get; } // para guardar a lista de adjacencia
+        private List<int> Visitados { get; } // para guardar os vértices visitados
 
         public BuscaDfs(Dictionary<int, List<int>> matrizAdj)
         {
@@ -17,31 +17,33 @@ namespace Grafos.DFS
             Visitados = new List<int>();
         }
 
-        public void Executar(int valorInicial)
+        public void Executar(int vertice)
         {
-
-            if (Visitados.Contains(valorInicial))
+            // verifica se os vértices visitados possui o vértice
+            if (Visitados.Contains(vertice))
                 return;
 
-            if (!ListaAdj.ContainsKey(valorInicial))
+            // Se não tiver um indice correspondente na lista de adj,
+            // adiciona nos vértices visitados, pois pode ser um vertice que não contém
+            // outro vértice adjacente
+            if (!ListaAdj.ContainsKey(vertice))
             {
-                Visitados.Add(valorInicial);
+                Visitados.Add(vertice);
                 return;
             }
                 
-
+            // para armazenar os vértices adjacentes
             List<int> aux = new List<int>();
 
-            Visitados.Add(valorInicial);
-            ListaAdj.TryGetValue(valorInicial, out aux);
-
-            foreach(var item in aux)
+            Visitados.Add(vertice); 
+            ListaAdj.TryGetValue(vertice, out aux); // verifica os vértices adjacentes do vértice 
+            foreach (var item in aux)
             {
-                Console.WriteLine($"{valorInicial} -> {item}");
+                Console.WriteLine($"{vertice} -> {item}");
                 if (Visitados.Contains(item))
                     continue;
 
-                Executar(item);
+                Executar(item); // chama novamente a função e repete o processo
             }
         }
 
