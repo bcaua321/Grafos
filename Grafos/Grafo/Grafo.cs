@@ -8,15 +8,27 @@ namespace Grafos
 {
     public class Grafo
     {
-        public Dictionary<int, List<int>> ListaAdj { get; set; }
-        public List<int> Vertices { get; }
-
+        public Dictionary<int, List<int>> ListaAdj { get; set; } // Lista de adj por dictionary
+        public List<int> Vertices { get; } // Lista de adj por Vertices
+        public List<int>[] ListaAdjByList;
+        public int NumeroVertices { get; set; }
+        public Grafo(int numeroVertices)
+        {
+            this.NumeroVertices = numeroVertices;
+            ListaAdjByList = new List<int>[numeroVertices];
+            for (int i = 0; i < numeroVertices; i++)
+                ListaAdjByList[i] = new List<int>();
+        }
         public Grafo()
         {
             this.ListaAdj = new Dictionary<int, List<int>>(); 
         }
 
-        // Irá setar vertice v2 adjacente ao v1
+
+        // Adicionar uma aresta a lista de adjcencia com lista
+        public void AddAresta(int u, int v) { ListaAdjByList[u].Add(v); }
+
+        // Adicionar uma aresta a lista de adjcencia com dicionário. Somente BFS E DFS
         public void SetAdja(int v1, int v2)
         {
             List<int> adjaExistente = new List<int>();
