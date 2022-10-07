@@ -36,13 +36,11 @@ namespace Grafos
             bfs.PrintVisitados();
             */
 
-            Grafo g = new Grafo(6);
-            g.AddAresta(5, 2);
-            g.AddAresta(5, 0);
-            g.AddAresta(4, 0);
-            g.AddAresta(4, 1);
+            Grafo g = new Grafo(5);
+            g.AddAresta(0, 1);
+            g.AddAresta(1, 2);
             g.AddAresta(2, 3);
-            g.AddAresta(3, 1);
+            g.AddAresta(3, 4);
 
             Console.WriteLine("Ordem topologico pelo algoritmo de Kahn: ");
             KahnAlg kahn = new KahnAlg(g.ListaAdjByList, g.NumeroVertices);
