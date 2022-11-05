@@ -4,6 +4,7 @@ using Grafos.Dijkstra;
 using Grafos.Kahn;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Grafos
 {
@@ -52,36 +53,37 @@ namespace Grafos
             */
 
             /* Dijkstra */
+            /* Para grafo não dirigido, é bom repetir a aresta mas com os valores dos vertices trocados*/
 
             List<Aresta> arestas = new List<Aresta>
             {
-                new Aresta(1, 2, 7),
-                new Aresta(1, 3, 9),
-                new Aresta(1, 6, 14),
-                new Aresta(2, 4, 15),
-                new Aresta(2, 3, 10),
-                new Aresta(3, 4, 11),
-                new Aresta(3, 6, 2),
-                new Aresta(6, 5, 9),
-                new Aresta(4, 5, 6)
+                new Aresta(0, 1, 1),
+                new Aresta(0, 2, 3),
+                new Aresta(1, 2, 1),
+                new Aresta(2, 3, 1),
+                new Aresta(3, 4, 1),
+                new Aresta(4, 5, 1),
+                new Aresta(5, 0, 6)
             };
 
 
             List<Vertices> vertices = new List<Vertices>
             {
+                new Vertices(0),
                 new Vertices(1),
                 new Vertices(2),
                 new Vertices(3),
                 new Vertices(4),
-                new Vertices(5),
-                new Vertices(6)
+                new Vertices(5)
             };
 
-            DijkstraAlg dijkstra = new DijkstraAlg(arestas, vertices, 1);
+            DijkstraAlg dijkstra = new DijkstraAlg(arestas, vertices, 0);
 
             var result = dijkstra.VerticesAdjacentes(1);
 
             dijkstra.Executar();
+
+
             dijkstra.printPath();
         }
     }
